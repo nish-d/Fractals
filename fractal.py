@@ -8,6 +8,7 @@
 """
 
 import pygame
+import eztext
 
 # Define some colors
 white = (0, 0, 0)
