@@ -15,7 +15,7 @@ white = (0, 0, 0)
 black = (255, 255, 255)
 green = (0, 255, 0)
 red = (255, 0, 0)
-
+fractal_level = 1
 
 def recursive_draw(x, y, width, height, count):
     #Draw the rectangle
@@ -36,6 +36,14 @@ def recursive_draw(x, y, width, height, count):
                      [x + width * .75, (height * 1.5) // 2 + y],
                      3)
 
+    """if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                count += 1
+            if event.key == pygame.K_DOWN:
+                count -= 1
+
+    if count < 0 or count > 10:
+                count = 0"""
 
     if count > 0:
         count -= 1
@@ -91,7 +99,16 @@ while not done and display_instructions:
             instruction_page += 1
             if instruction_page == 3:
                 display_instructions = False
+        if event.type ==pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                    fractal_level += 1
+                    recursive_draw(0, 0, 700,700,fractal_level)
+            if event.key == pygame.K_DOWN:
+                    fractal_level -= 1
+                    recursive_draw(0, 0, 700,700,fractal_level)
 
+        if fractal_level < 0 or fractal_level > 10:
+                    fractal_level = 0
     # Set the screen background
     screen.fill(white)
 
@@ -108,11 +125,12 @@ while not done and display_instructions:
 
     if instruction_page == 2:
         # Draw instructions, page 2
-        text = font.render("This program bounces a rectangle", True, black)
-        screen.blit(text, [10, 10])
+        #screen.blit(text, [10, 10])
+        recursive_draw(0, 0, 700,700,2)
 
-        text = font.render("Page 2", True, black)
-        screen.blit(text, [10, 40])
+
+        #text = font.render("Page 2", True, black)
+        #screen.blit(text, [10, 40])
 
     # Limit to 60 frames per second
     clock.tick(60)
@@ -130,7 +148,7 @@ while not done:
     screen.fill(white)
 
     # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
-    fractal_level = 3
+    fractal_level = 1
     #recursive_draw(0, 0, 700, 700, fractal_level)
     p1 = [0, 0]
     p2 = [0, 700]
