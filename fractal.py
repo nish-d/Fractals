@@ -81,11 +81,12 @@ pygame.init()
 size = [700, 700]
 screen = pygame.display.set_mode(size)
 font = pygame.font.Font(None, 36)
-instruction_page=0
+instruction_page=1
 pygame.display.set_caption("My Game")
 
 # Loop until the user clicks the close button.
 done = False
+fractal_level=1
 display_instructions=True
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -95,17 +96,18 @@ while not done and display_instructions:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            instruction_page += 1
-            if instruction_page == 3:
-                display_instructions = False
+        if event.type ==pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                instruction_page = 2
+            if event.key == pygame.K_LEFT:
+                instruction_page = 3
         if event.type ==pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                     fractal_level += 1
-                    recursive_draw(0, 0, 700,700,fractal_level)
+                   # recursive_draw(0, 0, 700,700,fractal_level)
             if event.key == pygame.K_DOWN:
                     fractal_level -= 1
-                    recursive_draw(0, 0, 700,700,fractal_level)
+                  #  recursive_draw(0, 0, 700,700,fractal_level)
 
         if fractal_level < 0 or fractal_level > 10:
                     fractal_level = 0
@@ -126,9 +128,15 @@ while not done and display_instructions:
     if instruction_page == 2:
         # Draw instructions, page 2
         #screen.blit(text, [10, 10])
-        recursive_draw(0, 0, 700,700,2)
+        recursive_draw(0, 0, 700,700,fractal_level)
 
-
+    if instruction_page == 3:
+        p1 = [0, 0]
+        p2 = [0, 700]
+        p3 = [700, 0]
+        p4=[700,700]
+        recursive_triangle(p1,p2,p3,fractal_level)
+        recursive_triangle(p4, p2, p3, fractal_level)
         #text = font.render("Page 2", True, black)
         #screen.blit(text, [10, 40])
 
@@ -139,30 +147,30 @@ while not done and display_instructions:
     pygame.display.flip()
 
 # -------- Main Program Loop -----------
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-
-    # Set the screen background
-    screen.fill(white)
-
-    # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
-    fractal_level = 1
-    #recursive_draw(0, 0, 700, 700, fractal_level)
-    p1 = [0, 0]
-    p2 = [0, 700]
-    p3 = [700, 0]
-    p4=[700,700]
-    recursive_triangle(p1,p2,p3,fractal_level)
-    recursive_triangle(p4, p2, p3, fractal_level)
-    # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
-
-    # Go ahead and update the screen with what we've drawn.
-    pygame.display.flip()
-
-    # Limit to 20 frames per second
-    clock.tick(20)
+# while not done:
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             done = True
+#
+#     # Set the screen background
+#     screen.fill(white)
+#
+#     # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
+#     fractal_level = 1
+#     #recursive_draw(0, 0, 700, 700, fractal_level)
+#     p1 = [0, 0]
+#     p2 = [0, 700]
+#     p3 = [700, 0]
+#     p4=[700,700]
+#     recursive_triangle(p1,p2,p3,fractal_level)
+#     recursive_triangle(p4, p2, p3, fractal_level)
+#     # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+#
+#     # Go ahead and update the screen with what we've drawn.
+#     pygame.display.flip()
+#
+#     # Limit to 20 frames per second
+#     clock.tick(20)
 
 # Be IDLE friendly. If you forget this line, the program will 'hang'
 # on exit.
