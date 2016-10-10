@@ -1,16 +1,7 @@
-"""
- Sample fractal using recursion.
 
- Sample Python/Pygame Programs
- Simpson College Computer Science
- http://programarcadegames.com/
- http://simpson.edu/computer-science/
-"""
 
 import pygame
 import eztext
-
-# Define some colors
 white = (0, 0, 0)
 black = (255, 255, 255)
 green = (0, 255, 0)
@@ -19,7 +10,7 @@ fractal_level = 1
 
 def recursive_draw(x, y, width, height, count):
 
-    #Draw the rectangle
+ 
     pygame.draw.rect(screen,black,[x,y,width,height],1)
     pygame.draw.line(screen,
                      black,
